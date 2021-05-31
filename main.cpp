@@ -11,7 +11,7 @@ using namespace std;
 
 
 void generatePhoneNumbersPR(int length, string soFar, int areaCode, int internationalCountryCode, int firstX, int lastX) {
-    if (length == 0) {
+    if (length == soFar.size()) {
         string firstThree = soFar.substr(0, firstX);
         string lastFour = soFar.substr(firstX, lastX);
         cout << '+' << internationalCountryCode <<  '(' << areaCode << ')' << firstThree << "-" << lastFour << endl;
@@ -19,7 +19,7 @@ void generatePhoneNumbersPR(int length, string soFar, int areaCode, int internat
     else {
         for (int i = 0; i <= 9; i++) {
             if (soFar[0] != '0' && soFar[0] != '1')
-                generatePhoneNumbersPR(length - 1, soFar + integerToString(i), areaCode, internationalCountryCode, firstX, lastX);
+                generatePhoneNumbersPR(length, soFar + integerToString(i), areaCode, internationalCountryCode, firstX, lastX);
         }
     }
 }
@@ -27,9 +27,10 @@ int raiseToPower(int base, int phoneNumberLength) {
     if (phoneNumberLength == 0) return 1;
     return base * raiseToPower(base, phoneNumberLength - 1);
 }
-void totalNumbersAvailable(int phoneNumberLength) {
+int totalNumbersAvailable(int phoneNumberLength) {
     int possibilities = raiseToPower(10, phoneNumberLength);
     cout << "There are " << 8 * (possibilities) << " different phone number possibilities for your area code." << endl;
+    return possibilities;
 }
 
 void generatePhoneNumbersPR(int phoneNumberLength, int areaCode, int internationalCountryCode, int firstX, int nextX) {
@@ -37,22 +38,25 @@ void generatePhoneNumbersPR(int phoneNumberLength, int areaCode, int internation
     totalNumbersAvailable(phoneNumberLength);
 }
 
-void generatePhoneNumbersBR(int length, int areaCode, int internationalCountryCode, int firstX, int nextX, string soFar) {
-    if (length == soFar.size()) {
-        string firstThree = soFar.substr(0, firstX);
-        string lastFour = soFar.substr(firstX, nextX);
-        cout << '+' << internationalCountryCode <<  '(' << areaCode << ')' << firstThree << "-" << lastFour << endl;
+void generatePhoneNumbersI(int length, int areaCode, int internationalCountryCode) {
+    string phoneNumber = "";
+    for (int i = 0; i < length - 1; i++) {
+        phoneNumber += '0';
     }
-    else {
-        for (int i = 0; i <= 9; i++) {
-            generatePhoneNumbersBR(numbers, length, areaCode, internationalCountryCode, firstX, nextX, soFar += integerToString(i));
-        }
+    phoneNumber = '2' + phoneNumber;
+    int totalPerm = totalNumbersAvailable(length);
+    int temp = stringToInteger(phoneNumber);
+    for (int i = 0; i < totalPerm; i ++) {
+        temp ++;
+        phoneNumber = integerToString(temp);
+        string firstThree = phoneNumber.substr(0, 3);
+        string lastFour = phoneNumber.substr(3, 4);
+        cout << '+' << internationalCountryCode <<  '(' << areaCode << ')' << phoneNumber.substr(0, 3)
+             << "-" << phoneNumber.substr(3, 4) << endl;
     }
 }
-void generatePhoneNumbersBR(int phoneNumberLength, int areaCode, int internationalCountryCode, int firstX, int nextX) {
-    generatePhoneNumbersBR(phoneNumberLength, areaCode, internationalCountryCode, firstX, nextX, "");
-    totalNumbersAvailable(phoneNumberLength);
-}
+
+
 /*
  * This sample main brings up testing menu.
  */
@@ -66,7 +70,8 @@ int main() {
 
 PROVIDED_TEST("Sample use of SimpleTest")
 {
-//    totalNumbersAvailable(7);
-//    generatePhoneNumbersPR(7, "", 956, 1, 3, 4);
-      generatePhoneNumbersBR(7, 956, 1, 3, 4);
+    totalNumbersAvailable(7);
+    generatePhoneNumbersPR(7, "", 956, 1, 3, 4);
+    generatePhoneNumbersBR(7, 956, 1);
+    generatePhoneNumbersI(7, 956, 1);
 }
