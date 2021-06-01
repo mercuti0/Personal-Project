@@ -127,12 +127,20 @@ PROVIDED_TEST("Test that both the iterative and recursive functions return the s
     EXPECT_EQUAL(generatePhoneNumbersI(2, 1, 1, 2, 0), generatePhoneNumbersPR(2, 1, 1, 2, 0));
     EXPECT_EQUAL(generatePhoneNumbersI(3, 1, 1, 3, 0), generatePhoneNumbersPR(3, 1, 1, 3, 0));
     EXPECT_EQUAL(generatePhoneNumbersI(7, 1, 1, 3, 4), generatePhoneNumbersPR(7, 1, 1, 3, 4));
-//    TIME_OPERATION(1, generatePhoneNumbersPR(1, 1, 1, 1, 0));
-//    TIME_OPERATION(2, generatePhoneNumbersPR(2, 1, 1, 2, 0));
-//    TIME_OPERATION(3, generatePhoneNumbersPR(3, 1, 1, 3, 0));
-//    TIME_OPERATION(1, generatePhoneNumbersI(1, 1, 1, 1, 0));
-//    TIME_OPERATION(2, generatePhoneNumbersI(2, 1, 1, 2, 0));
-//    TIME_OPERATION(5, generatePhoneNumbersPR(7, 1, 1, 3, 4));
+    TIME_OPERATION(1, generatePhoneNumbersPR(1, 1, 1, 1, 0));
+    TIME_OPERATION(2, generatePhoneNumbersPR(2, 1, 1, 2, 0));
+    TIME_OPERATION(3, generatePhoneNumbersPR(3, 1, 1, 3, 0));
+    TIME_OPERATION(4, generatePhoneNumbersPR(4, 1, 1, 4, 0));
+    TIME_OPERATION(5, generatePhoneNumbersPR(5, 1, 1, 5, 0));
+    TIME_OPERATION(6, generatePhoneNumbersPR(6, 1, 1, 6, 0));
+    TIME_OPERATION(7, generatePhoneNumbersPR(7, 1, 1, 3, 4));
+    TIME_OPERATION(1, generatePhoneNumbersI(1, 1, 1, 1, 0));
+    TIME_OPERATION(2, generatePhoneNumbersI(2, 1, 1, 2, 0));
+    TIME_OPERATION(3, generatePhoneNumbersI(3, 1, 1, 3, 4));
+    TIME_OPERATION(4, generatePhoneNumbersI(4, 1, 1, 4, 0));
+    TIME_OPERATION(5, generatePhoneNumbersI(5, 1, 1, 5, 0));
+    TIME_OPERATION(6, generatePhoneNumbersI(6, 1, 1, 6, 0));
+    TIME_OPERATION(7, generatePhoneNumbersPR(7, 1, 1, 3, 4));
 
 //    generatePhoneNumbersPR(3, 956, 1, 3, 0);
 //    generatePhoneNumbersI(3, 956, 1, 3, 0);
