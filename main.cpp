@@ -19,7 +19,7 @@ void generatePhoneNumbersPR(int length, string phoneNumber, int areaCode, int in
             string nextX = phoneNumber.substr(firstX, lastX);
             // Phone numbers cannot be led by a 0 or 1
             if (phoneNumber[0] != '0' && phoneNumber[0] != '1') {
-                cout << '+' << internationalCountryCode <<  '(' << areaCode << ")" << startX << "-" << nextX << endl;
+//                cout << '+' << internationalCountryCode <<  '(' << areaCode << ")" << startX << "-" << nextX << endl;
                 totalPerm.add(stringToInteger(phoneNumber));
             }
         }
@@ -78,7 +78,7 @@ Vector<int> generatePhoneNumbersI(int length, int areaCode, int internationalCou
     string topSize = '1' + phoneNumber + '0';
     phoneNumber = '2' + phoneNumber;
     // Calculate the total number of phone numbers available
-    int numberOfPerm = totalNumbersAvailable(length);
+    int numberOfPerm = raiseToPower(10, length);
     // If the number of permutations is less than the valid amount, then this is being run for testing purposes.
     if (numberOfPerm < 0) {
         numberOfPerm = stringToInteger(topSize);
@@ -92,7 +92,7 @@ Vector<int> generatePhoneNumbersI(int length, int areaCode, int internationalCou
         string lastFour = phoneNumber.substr(firstX, nextX);
         // While the second and third value are not 11, we can print the remaining values since we automatically not start at 1 or 0
         if (phoneNumber.substr(1, 2) != "11" && phoneNumber[0] != '0' && phoneNumber[0] != '1') {
-            cout << '+' << internationalCountryCode <<  '(' << areaCode << ")" << firstThree << "-" << lastFour << endl;
+//            cout << '+' << internationalCountryCode <<  '(' << areaCode << ")" << firstThree << "-" << lastFour << endl;
             totalPerm.add(stringToInteger(phoneNumber));
         }
         temp ++;
@@ -114,19 +114,25 @@ int main() {
 
 PROVIDED_TEST("Test that both the iterative and recursive functions return the same value. Time test each operation.")
 {
-//    int usNumbers = totalNumbersAvailable(7);
-//    int swedenNumbers = totalNumbersAvailable(9);
-//    EXPECT_EQUAL(usNumbers, 7920000);
-//    EXPECT_EQUAL(swedenNumbers, 799920000);
-//    EXPECT_EQUAL(generatePhoneNumbersI(1, 1, 1, 1, 0), generatePhoneNumbersPR(1, 1, 1, 1, 0));
-//    EXPECT_EQUAL(generatePhoneNumbersI(2, 1, 1, 2, 0), generatePhoneNumbersPR(2, 1, 1, 2, 0));
-//    EXPECT_EQUAL(generatePhoneNumbersI(3, 1, 1, 3, 0), generatePhoneNumbersPR(3, 1, 1, 3, 0));
+    int usNumbers = totalNumbersAvailable(7);
+    int swedenNumbers = totalNumbersAvailable(9);
+    EXPECT_EQUAL(usNumbers, 7920000);
+    EXPECT_EQUAL(swedenNumbers, 799920000);
+    Vector<int> PRtest = generatePhoneNumbersPR(7, 1, 1, 3, 4);
+    Vector<int> Itest = generatePhoneNumbersI(7, 1, 1, 3, 4);
+    int last = PRtest[PRtest.size() -1];
+    int last1 = Itest[Itest.size() -1];
+    cout << last << "  " << last1 << endl;
+    EXPECT_EQUAL(generatePhoneNumbersI(1, 1, 1, 1, 0), generatePhoneNumbersPR(1, 1, 1, 1, 0));
+    EXPECT_EQUAL(generatePhoneNumbersI(2, 1, 1, 2, 0), generatePhoneNumbersPR(2, 1, 1, 2, 0));
+    EXPECT_EQUAL(generatePhoneNumbersI(3, 1, 1, 3, 0), generatePhoneNumbersPR(3, 1, 1, 3, 0));
+    EXPECT_EQUAL(generatePhoneNumbersI(7, 1, 1, 3, 4), generatePhoneNumbersPR(7, 1, 1, 3, 4));
 //    TIME_OPERATION(1, generatePhoneNumbersPR(1, 1, 1, 1, 0));
 //    TIME_OPERATION(2, generatePhoneNumbersPR(2, 1, 1, 2, 0));
 //    TIME_OPERATION(3, generatePhoneNumbersPR(3, 1, 1, 3, 0));
 //    TIME_OPERATION(1, generatePhoneNumbersI(1, 1, 1, 1, 0));
 //    TIME_OPERATION(2, generatePhoneNumbersI(2, 1, 1, 2, 0));
-    TIME_OPERATION(5, generatePhoneNumbersPR(5, 1, 1, 3, 2));
+//    TIME_OPERATION(5, generatePhoneNumbersPR(7, 1, 1, 3, 4));
 
 //    generatePhoneNumbersPR(3, 956, 1, 3, 0);
 //    generatePhoneNumbersI(3, 956, 1, 3, 0);
