@@ -33,6 +33,15 @@ void generatePhoneNumbersPR(int length, string phoneNumber, int areaCode, int in
     }
 }
 
+/* This function would be for the user to input their values and have the recursion begin.
+ */
+Vector<int> generatePhoneNumbersPR(int phoneNumberLength, int areaCode, int internationalCountryCode, int firstX, int nextX) {
+    Vector<int> totalPerm;
+    // Overload function and include only the necessary inputs.
+    generatePhoneNumbersPR(phoneNumberLength, "", areaCode, internationalCountryCode, firstX, nextX, totalPerm);
+    return totalPerm;
+}
+
 /* This helper function calcualtes the power of base 10 to the power of the length of phone numbers - 1, giving us the
  * place (millionth, billionth) to which the permutations can go up to. This function was obtained from Section 2. Big-O
  * and Recursion.
@@ -50,15 +59,6 @@ int totalNumbersAvailable(int phoneNumberLength) {
     // Multiply by the total available leading numbers (2-9) and subtract the numbers starting with N11 (80,000).
     int validPossibilities = (8 * (possibilities)) - 80000;
     return validPossibilities;
-}
-
-/* This function would be for the user to input their values and have the recursion begin.
- */
-Vector<int> generatePhoneNumbersPR(int phoneNumberLength, int areaCode, int internationalCountryCode, int firstX, int nextX) {
-    Vector<int> totalPerm;
-    // Overload function and include only the necessary inputs.
-    generatePhoneNumbersPR(phoneNumberLength, "", areaCode, internationalCountryCode, firstX, nextX, totalPerm);
-    return totalPerm;
 }
 
 /* This function iteratively prints all the possible permutations of a phone number.
